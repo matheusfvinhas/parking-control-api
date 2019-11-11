@@ -16,11 +16,10 @@ ActiveRecord::Schema.define(version: 2019_11_06_172348) do
   enable_extension "plpgsql"
 
   create_table "parkings", force: :cascade do |t|
-    t.string "plate"
-    t.string "time"
-    t.boolean "paid"
-    t.boolean "left"
-    t.datetime "enter_at"
+    t.string "plate", null: false
+    t.boolean "paid", default: false, null: false
+    t.boolean "left", default: false, null: false
+    t.datetime "enter_at", null: false
     t.datetime "left_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

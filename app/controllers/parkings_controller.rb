@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ParkingsController < ApplicationController
-  before_action :set_parking, only: %i[show update]
+  before_action :set_parking, only: %i[pay out]
 
   # GET /parking/:plate
   def index
@@ -11,10 +11,9 @@ class ParkingsController < ApplicationController
 
   # POST /parking
   def create
-    @parking = Parking.new(parking_params)
-    byebug
+    @parking = Parking.new(parking_params)   
 
-    if @parking.save
+    if @parking.create
       render json: @parking, status: :created
     else
       render json: @parking.errors, status: :unprocessable_entity
@@ -23,8 +22,7 @@ class ParkingsController < ApplicationController
 
   # PUT /parking/:id/pay
   def pay
-    byebug
-    if @parking.update(parking_params)
+    if @parking.pay
       render json: @parking
     else
       render json: @parking.errors, status: :unprocessable_entity
@@ -33,7 +31,12 @@ class ParkingsController < ApplicationController
 
   # PUT /parking/:id/out
   def out
-    if @parking.update(parking_params)
+    unless @parking.paid
+      render json: @parking.errors, status: :unprocessable_entity
+      return
+    end
+
+    if @parking.out
       render json: @parking
     else
       render json: @parking.errors, status: :unprocessable_entity
@@ -41,13 +44,14 @@ class ParkingsController < ApplicationController
    end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_parking
-        @parking = Parking.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def parking_params
-        params.require(:parking).permit(:id, :plate)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_parking
+    @parking = Parking.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def parking_params
+    params.require(:parking).permit(:id, :plate)
+  end
 end
