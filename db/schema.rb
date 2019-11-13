@@ -12,9 +12,6 @@
 
 ActiveRecord::Schema.define(version: 2019_11_06_172348) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "parkings", force: :cascade do |t|
     t.string "plate", null: false
     t.boolean "paid", default: false, null: false
