@@ -13,5 +13,11 @@ RSpec.describe "Parkings", type: :request do
       post '/parking', params: { :plate => 'AAA-1234' }, as: :json
       expect(response).to have_http_status(201)
     end
+
+    it "use a open reserve" do
+        post '/parking', params: { :plate => 'AAA-1234' }, as: :json
+        post '/parking', params: { :plate => 'AAA-1234' }, as: :json
+        expect(response).to have_http_status(200)
+      end
   end
 end
