@@ -36,11 +36,6 @@ class ParkingsController < ApplicationController
 
   # PUT /parking/:id/out
   def out
-    unless @parking.paid
-      render json: @parking.errors, status: :unprocessable_entity
-      return
-    end
-
     if @parking.out
       render json: @parking
     else
@@ -49,13 +44,11 @@ class ParkingsController < ApplicationController
    end
 
   private
-
-  # Use callbacks to share common setup or constraints between actions.
+  
   def set_parking
     @parking = Parking.find(params[:id])
   end
-
-  # Only allow a trusted parameter "white list" through.
+  
   def parking_params
     params.require(:parking).permit(:id, :plate)
   end
