@@ -20,8 +20,6 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Use RSpec for specs
   gem 'rspec-rails'
-  # Use Factory Girl for generating random test data
-  gem 'factory_girl_rails'
 end
 
 group :development do

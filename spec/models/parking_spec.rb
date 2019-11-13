@@ -1,5 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe Parking, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+    it "is valid" do
+      parking = Parking.new(plate: 'AAA-1234')
+      expect(parking).to be_valid
+    end
+
+    it "is not valid" do
+      parking = Parking.new(plate: 'AAA1234')
+      expect(parking).to_not be_valid
+    end
+
+    it "is not valid" do
+      parking = Parking.new(plate: nil)
+      expect(parking).to_not be_valid
+    end
 end

@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe ParkingsController, type: :routing do
   describe "routing" do    
     it "routes to #index" do
-      expect(:get => "/parking/AAA-1234").to route_to("parkings#index")
+      expect(:get => "/parking/AAA-1234").to route_to("parkings#index", :plate => "AAA-1234")
     end
     
     it "routes to #create" do
