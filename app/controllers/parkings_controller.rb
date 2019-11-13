@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ParkingsController < ApplicationController
   before_action :set_parking, only: %i[pay out]
 
@@ -11,6 +9,13 @@ class ParkingsController < ApplicationController
 
   # POST /parking
   def create
+    @parking = Parking.find_by(plate: params[:plate], left: false)
+        
+    unless @parking.nil?   
+      render json: @parking, status: :ok
+      return
+    end
+
     @parking = Parking.new(parking_params)   
 
     if @parking.create

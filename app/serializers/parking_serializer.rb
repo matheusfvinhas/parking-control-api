@@ -1,3 +1,3 @@
 class ParkingSerializer < ActiveModel::Serializer
-  attributes :id, :id, :plate, :time, :paid, :left, :enter_at, :left_at
+  attributes :id, :time, :paid, :left
 end

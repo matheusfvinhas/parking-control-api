@@ -3,7 +3,7 @@ class Parking < ApplicationRecord
 
   attribute :time, :string, default: ''
 
-  scope :get_all_by_plate, ->(plate) { where(plate: plate) }
+  scope :get_all_by_plate, -> (plate) { where(plate: plate) }  
   
   def create  
     self.enter_at = DateTime.now
