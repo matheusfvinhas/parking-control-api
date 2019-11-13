@@ -1,0 +1,3 @@
+```sh
+    bundle && rails s
+```
